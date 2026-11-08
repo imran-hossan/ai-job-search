@@ -15,6 +15,8 @@ The `site:` query templates in this file are the **WebSearch fallback** — for 
 Primary (your market's job boards - scaffold one with `/add-portal`):
 - **[YOUR_JOB_BOARD]** - your market's largest general job board
 - **linkedin.com/jobs** - LinkedIn job listings (filter: [YOUR_COUNTRY] / [YOUR_CITY]); also covered by `linkedin-search` CLI
+- **arbeitsagentur.de/jobsuche** - Germany's federal job board; covered by the `jobsuche-search` CLI (no `site:` line needed)
+- **jobvector.de** - German STEM/life-science board (science, engineering, IT, medicine). **No CLI:** the site sits behind a Cloudflare challenge, so it is reached only through the `site:jobvector.de` WebSearch queries below
 - **[YOUR_INDUSTRY_JOB_BOARD]** - a niche/industry board for your field (optional)
 - **[YOUR_ADDITIONAL_JOB_BOARD]** - another major board for your market (optional)
 
@@ -65,6 +67,25 @@ Wider net for general technical roles.
 site:[YOUR_JOB_BOARD] [YOUR_KEY_SKILL] developer [YOUR_CITY]
 site:linkedin.com/jobs "[YOUR_KEY_SKILL] developer" [YOUR_CITY]
 site:[YOUR_JOB_BOARD] "technical consultant" [YOUR_DOMAIN] [YOUR_CITY]
+```
+
+### jobvector.de (WebSearch only)
+
+jobvector has no portal CLI (Cloudflare blocks automated fetches), so these queries are its only coverage. Search snippets give title, employer and city. Open a promising hit through the employer's own career page or the Jobsuche CLI rather than fetching jobvector directly. Run each in German and English:
+
+```
+site:jobvector.de "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
+site:jobvector.de "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_COUNTRY]
+site:jobvector.de [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] OR [YOUR_REGION]
+site:jobvector.de "[YOUR_KEY_SKILL]" Stellenangebot
+```
+
+Example (molecular biology):
+
+```
+site:jobvector.de "Molekularbiologe" OR "Molekularbiologin"
+site:jobvector.de "molecular biologist" Germany
+site:jobvector.de Molekularbiologie qPCR Postdoc OR Wissenschaftler
 ```
 
 ## Location Filter
