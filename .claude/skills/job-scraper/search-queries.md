@@ -16,6 +16,7 @@ Primary (your market's job boards - scaffold one with `/add-portal`):
 - **[YOUR_JOB_BOARD]** - your market's largest general job board
 - **linkedin.com/jobs** - LinkedIn job listings (filter: [YOUR_COUNTRY] / [YOUR_CITY]); also covered by `linkedin-search` CLI
 - **arbeitsagentur.de/jobsuche** - Germany's federal job board; covered by the `jobsuche-search` CLI (no `site:` line needed)
+- **xing.com/jobs** - XING, the DACH professional network's job board. **No CLI:** robots.txt disallows `/jobs/search` and the GraphQL API for generic agents (it allows only a few named AI crawlers), so it is reached only through the `site:xing.com/jobs` WebSearch queries below
 - **de.indeed.com** - Indeed Germany. **No CLI:** robots.txt allows search, but the site serves a bot "Security Check" and Indeed's terms bar automated access, so it is reached only through the `site:de.indeed.com` WebSearch queries below
 - **jobvector.de** - German STEM/life-science board (science, engineering, IT, medicine). **No CLI:** the site sits behind a Cloudflare challenge, so it is reached only through the `site:jobvector.de` WebSearch queries below
 - **[YOUR_INDUSTRY_JOB_BOARD]** - a niche/industry board for your field (optional)
@@ -105,6 +106,24 @@ Example (molecular biology):
 site:de.indeed.com "Molekularbiologe" OR "Molekularbiologin"
 site:de.indeed.com "molecular biologist" Germany
 site:de.indeed.com Molekularbiologie qPCR Labor
+```
+
+### xing.com/jobs (WebSearch only)
+
+XING has no portal CLI: its robots.txt disallows the job search and its API for generic agents. Search engines index the individual posting pages (`xing.com/jobs/<city>-<title>-<id>`), so `site:` queries find them. Use the snippets for title, employer and city, then follow up on the employer's own career page or via the Jobsuche/LinkedIn CLIs. Do not fetch XING search pages directly. Run each in German and English:
+
+```
+site:xing.com/jobs "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
+site:xing.com/jobs "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_COUNTRY]
+site:xing.com/jobs [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] OR [YOUR_REGION]
+```
+
+Example (molecular biology):
+
+```
+site:xing.com/jobs "Molekularbiologe" OR "Molekularbiologin"
+site:xing.com/jobs "molecular biologist" Germany
+site:xing.com/jobs Molekularbiologie qPCR Labor
 ```
 
 ## Location Filter
