@@ -16,6 +16,7 @@ Primary (your market's job boards - scaffold one with `/add-portal`):
 - **[YOUR_JOB_BOARD]** - your market's largest general job board
 - **linkedin.com/jobs** - LinkedIn job listings (filter: [YOUR_COUNTRY] / [YOUR_CITY]); also covered by `linkedin-search` CLI
 - **arbeitsagentur.de/jobsuche** - Germany's federal job board; covered by the `jobsuche-search` CLI (no `site:` line needed)
+- **de.indeed.com** - Indeed Germany. **No CLI:** robots.txt allows search, but the site serves a bot "Security Check" and Indeed's terms bar automated access, so it is reached only through the `site:de.indeed.com` WebSearch queries below
 - **jobvector.de** - German STEM/life-science board (science, engineering, IT, medicine). **No CLI:** the site sits behind a Cloudflare challenge, so it is reached only through the `site:jobvector.de` WebSearch queries below
 - **[YOUR_INDUSTRY_JOB_BOARD]** - a niche/industry board for your field (optional)
 - **[YOUR_ADDITIONAL_JOB_BOARD]** - another major board for your market (optional)
@@ -86,6 +87,24 @@ Example (molecular biology):
 site:jobvector.de "Molekularbiologe" OR "Molekularbiologin"
 site:jobvector.de "molecular biologist" Germany
 site:jobvector.de Molekularbiologie qPCR Postdoc OR Wissenschaftler
+```
+
+### de.indeed.com (WebSearch only)
+
+Indeed has no portal CLI (bot challenge on every page, and its terms prohibit automated access), so these queries are its only coverage. Use the search snippets for title, employer and city, then follow up on the employer's own career page or via the Jobsuche/LinkedIn CLIs, which carry many of the same listings. Do not fetch Indeed pages directly. Run each in German and English:
+
+```
+site:de.indeed.com "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
+site:de.indeed.com "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_COUNTRY]
+site:de.indeed.com [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] OR [YOUR_REGION]
+```
+
+Example (molecular biology):
+
+```
+site:de.indeed.com "Molekularbiologe" OR "Molekularbiologin"
+site:de.indeed.com "molecular biologist" Germany
+site:de.indeed.com Molekularbiologie qPCR Labor
 ```
 
 ## Location Filter
