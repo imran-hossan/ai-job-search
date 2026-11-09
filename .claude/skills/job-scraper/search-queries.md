@@ -16,6 +16,7 @@ Primary (your market's job boards - scaffold one with `/add-portal`):
 - **[YOUR_JOB_BOARD]** - your market's largest general job board
 - **linkedin.com/jobs** - LinkedIn job listings (filter: [YOUR_COUNTRY] / [YOUR_CITY]); also covered by `linkedin-search` CLI
 - **arbeitsagentur.de/jobsuche** - Germany's federal job board; covered by the `jobsuche-search` CLI (no `site:` line needed)
+- **stellenanzeigen.de** - large German general board (own ads plus yourfirm, Appcast and regional-newspaper feeds); covered by the `stellenanzeigen-search` CLI (no `site:` line needed)
 - **xing.com/jobs** - XING, the DACH professional network's job board. **No CLI:** robots.txt disallows `/jobs/search` and the GraphQL API for generic agents (it allows only a few named AI crawlers), so it is reached only through the `site:xing.com/jobs` WebSearch queries below
 - **de.indeed.com** - Indeed Germany. **No CLI:** robots.txt allows search, but the site serves a bot "Security Check" and Indeed's terms bar automated access, so it is reached only through the `site:de.indeed.com` WebSearch queries below
 - **jobvector.de** - German STEM/life-science board (science, engineering, IT, medicine). **No CLI:** the site sits behind a Cloudflare challenge, so it is reached only through the `site:jobvector.de` WebSearch queries below
@@ -124,6 +125,44 @@ Example (molecular biology):
 site:xing.com/jobs "Molekularbiologe" OR "Molekularbiologin"
 site:xing.com/jobs "molecular biologist" Germany
 site:xing.com/jobs Molekularbiologie qPCR Labor
+```
+
+### Other German boards (WebSearch only)
+
+Checked 2026-11-09 with an honest tool user agent. None of these qualifies for a portal CLI, so `site:` queries are their only coverage. Use the snippets for title, employer and city, then follow up on the employer's own career page or via the Jobsuche/stellenanzeigen/LinkedIn CLIs. Do not fetch these sites directly.
+
+| Board | Why no CLI | `site:` filter |
+|-------|-----------|----------------|
+| StepStone | No response to automated requests | `site:stepstone.de/stellenangebote` |
+| Monster | 403 to automated requests | `site:monster.de` |
+| Jobware | 403 to automated requests | `site:jobware.de` |
+| meinestadt.de | 403 to automated requests | `site:jobs.meinestadt.de` |
+| academics.de (science/research) | robots.txt legal notice prohibits automated access | `site:academics.de` |
+| ZEIT Jobs (science/research) | robots.txt legal notice prohibits automated access | `site:jobs.zeit.de` |
+| EURAXESS (EU research jobs) | robots.txt disallows parameterised search (`/*?`) | `site:euraxess.ec.europa.eu/jobs` |
+| service.bund.de (federal public sector) | robots.txt disallows `/Content/DE/Stellen/Suche/` | `site:service.bund.de Stellenangebot` |
+| Interamt (public sector) | Stateful app; search ignores URL keywords | `site:interamt.de` |
+| Absolventa (graduates) | Search ignores the keyword server-side | `site:absolventa.de/stellenangebote` |
+| kimeta (aggregator) | robots.txt `Disallow: /` | skip (it re-lists other boards) |
+
+Run each in German and English, prioritising the science boards (academics.de, ZEIT Jobs, EURAXESS) for research roles:
+
+```
+site:academics.de "[YOUR_PRIMARY_JOB_TITLE_1]"
+site:jobs.zeit.de "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
+site:euraxess.ec.europa.eu/jobs "[YOUR_DOMAIN_KEYWORD_1]" Germany
+site:stepstone.de/stellenangebote "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
+site:service.bund.de OR site:interamt.de "[YOUR_PRIMARY_JOB_TITLE_1]"
+```
+
+Example (molecular biology):
+
+```
+site:academics.de Molekularbiologie Postdoc OR Wissenschaftler
+site:jobs.zeit.de Molekularbiologe OR Molekularbiologin
+site:euraxess.ec.europa.eu/jobs "molecular biology" Germany
+site:stepstone.de/stellenangebote Molekularbiologe
+site:service.bund.de OR site:interamt.de Biologe Labor
 ```
 
 ## Location Filter
